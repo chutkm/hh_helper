@@ -2,8 +2,8 @@
 const fileInput = document.getElementById('resume-upload');
 const uploadedFilesList = document.getElementById('uploaded-files-list');
 const progressBar = document.getElementById('progress-bar');
-const filterForm = document.getElementById('filter-form'); // Добавляем объявление filterForm
-const experienceInput = document.getElementById('experience'); // Для сброса счетчика
+const filterForm = document.getElementById('filter-form');
+const experienceInput = document.getElementById('experience');
 
 // Проверка существования элементов
 if (!fileInput || !uploadedFilesList || !progressBar || !filterForm) {
@@ -84,8 +84,20 @@ fileInput?.addEventListener('change', (event) => {
 
     xhr.send(formData);
 });
+
+// Инициализация страницы рейтинга
 document.addEventListener('DOMContentLoaded', () => {
-    // Восстановление состояния
+    const urlParams = new URLSearchParams(window.location.search);
+    const position = urlParams.get('position');
+
+    if (position) {
+        document.getElementById('position-title').textContent = position || 'Не указана';
+        // Здесь будет запрос к API для получения данных кандидатов
+    }
+});
+
+// Восстановление состояния чекбоксов и обновление интерфейса
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.dropdown-content input').forEach(checkbox => {
         const key = `cb_${checkbox.name}_${checkbox.value}`;
         checkbox.checked = localStorage.getItem(key) === 'true';
@@ -103,18 +115,21 @@ document.querySelectorAll('.dropdown-content input').forEach(checkbox => {
 
 function updateSelectedDisplays() {
     document.querySelectorAll('.custom-dropdown').forEach(container => {
-        const name = container.querySelector('input').name;
         const selected = Array.from(container.querySelectorAll('input:checked'))
             .map(el => el.parentElement.textContent.trim())
             .join(', ');
 
-        const display = container.querySelector('.selected-display');
-        display.innerHTML = selected
-            ? `<strong>Выбрано:</strong> ${selected}`
-            : '<em>Ничего не выбрано</em>';
+        const button = container.querySelector('.dropbtn');
+        const defaultText = button.getAttribute('data-default-text');
+
+        // Обновление текста кнопки
+        button.textContent = selected
+            ? selected
+            : defaultText || 'Выберите...';
     });
 }
-// Обработчик выпадающих списков
+
+// Обработчики выпадающих списков
 document.querySelectorAll('.dropbtn').forEach(btn => {
     btn.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -132,17 +147,10 @@ document.addEventListener('click', (e) => {
     });
 });
 
-// Валидация ручного ввода
+// Валидация ручного ввода для опыта работы
 document.getElementById('experience').addEventListener('input', (e) => {
     let value = parseInt(e.target.value) || 0;
     value = Math.max(0, Math.min(50, value));
-    e.target.value = value;
-});
-
-// Валидация ручного ввода для опыта работы
-document.getElementById('experience')?.addEventListener('input', (e) => {
-    let value = parseInt(e.target.value) || 0;
-    value = Math.max(0, Math.min(50, value)); // Ограничение: 0–50 лет
     e.target.value = value;
 });
 
@@ -180,11 +188,11 @@ document.getElementById('reset-filters')?.addEventListener('click', () => {
     });
 
     // Очистка localStorage
-    localStorage.clear(); // Полная очистка
+    localStorage.clear();
 
     // Сброс текстовых полей и селектов
     document.querySelectorAll('.form-group input, .form-group select').forEach(input => {
-        if(input.type !== 'checkbox' && input.type !== 'file') {
+        if (input.type !== 'checkbox' && input.type !== 'file') {
             input.value = '';
         }
     });
@@ -201,4 +209,10 @@ document.getElementById('reset-filters')?.addEventListener('click', () => {
     document.querySelectorAll('.selected-display').forEach(display => {
         display.textContent = '';
     });
+});
+
+// Обработчик кнопки показа рейтинга
+document.getElementById('show-ranking')?.addEventListener('click', () => {
+    const position = document.getElementById('position').value;
+    window.location.href = `/ranking?position=${encodeURIComponent(position)}`;
 });

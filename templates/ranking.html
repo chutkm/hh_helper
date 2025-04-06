@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рейтинг кандидатов</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Рейтинг кандидатов</h1>
+
+    <div class="container">
+        <div class="ranking-header">
+            <h2>Должность: <span id="position-title"></span></h2>
+            <div class="candidate-meta">
+                <div class="meta-row">
+                    <span class="meta-label">ФИО:</span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">Соответствие требованиям:</span>
+                </div>
+                <div class="meta-row">
+                    <a href="#" class="view-resume">Просмотр полного резюме</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="candidates-list" class="ranking-list">
+            <!-- Кандидаты будут здесь -->
+        </div>
+    </div>
+
+    <script src="/static/js/main_j.js"></script>
+</body>
+</html>
