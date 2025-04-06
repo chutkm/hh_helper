@@ -4,31 +4,47 @@
     <meta charset="UTF-8">
     <title>Рейтинг кандидатов</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/ranking.css">
 </head>
 <body>
-    <h1>Рейтинг кандидатов</h1>
+    <div class="ranking-container">
+        <button onclick="window.history.back()" class="back-button">
+            ← Вернуться
+        </button>
 
-    <div class="container">
-        <div class="ranking-header">
-            <h2>Должность: <span id="position-title"></span></h2>
-            <div class="candidate-meta">
-                <div class="meta-row">
+        <h1>Рейтинг кандидатов</h1>
+
+        <h2>Должность: <span id="position-title"></span></h2>
+
+        <div class="candidate-card">
+            <div class="candidate-info">
+                <div class="meta-row" style="margin-bottom: 15px;">
                     <span class="meta-label">ФИО:</span>
+                    <span class="meta-value">Иванов Иван Иванович</span>
                 </div>
-                <div class="meta-row">
-                    <span class="meta-label">Соответствие требованиям:</span>
-                </div>
-                <div class="meta-row">
-                    <a href="#" class="view-resume">Просмотр полного резюме</a>
+
+                <div class="compliance-wrapper">
+                    <div class="meta-label" style="margin-bottom: 8px;">
+                        Соответствие требованиям
+                    </div>
+                    <div class="compliance-percent">
+                        85%
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="candidates-list" class="ranking-list">
-            <!-- Кандидаты будут здесь -->
+            <a href="#" class="view-resume">
+                Просмотр резюме
+            </a>
         </div>
     </div>
 
-    <script src="/static/js/main_j.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const position = urlParams.get('position') || 'Не указана';
+            document.getElementById('position-title').textContent = position;
+        });
+    </script>
 </body>
 </html>
