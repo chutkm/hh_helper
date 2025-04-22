@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from sentence_transformers import SentenceTransformer
 import os
 from app.routes import router
 ###---------------------Инициализация FastAPI приложения.

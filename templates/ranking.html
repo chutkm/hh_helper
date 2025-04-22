@@ -82,17 +82,21 @@
             console.log(`Открываем модальное окно с ID: ${modalId}`);
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = "block";
+                console.log('Модальное окно найдено');
+                modal.classList.add("open"); // Добавляем класс .open
+                modal.style.display = "block"; // Убедитесь, что display установлен
             } else {
                 console.error(`Модальное окно с ID "${modalId}" не найдено.`);
             }
         }
 
+
         // Функция для закрытия модального окна
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = "none";
+                modal.classList.remove("open"); // Удаляем класс .open
+                modal.style.display = "none"; // Скрываем окно
                 if (modalId === "pdf-modal") {
                     const iframe = document.getElementById("pdf-iframe");
                     if (iframe) {

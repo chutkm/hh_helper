@@ -5,10 +5,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.testing import db
 from threading import Thread
 from app.utils import extract_text_from_pdf, save_text_to_json, parse_resume, \
-    extract_entities, lemmatize_text, clean_text, tokenize_text, create_vector, \
+    extract_entities, lemmatize_text, clean_text, tokenize_text,\
     process_contact_info, process_personal_info, \
     process_skills, extract_english_level, load_universities
-from app.models import process_embedding
+# from app.models import process_embedding
 import os
 import json
 from fastapi.responses import FileResponse

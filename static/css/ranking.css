@@ -162,19 +162,63 @@ h2 {
     box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
 }
 
+
+/* Базовые стили модального окна */
 .modal {
-    display: none; /* По умолчанию скрыто */
-    background-color: rgba(115, 17, 16, 0.8); /* Полупрозрачный фон */
-}
-
-.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
     background-color: white;
-    margin: 10% auto;
     padding: 20px;
-    width: 300px;
-    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+
+    /* Начальное состояние */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
+/* Состояние открытого модального окна */
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Фоновая затемнённая область */
+.modal-backdrop {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.modal-backdrop.open {
+    display: block;
+}
+
+/* Кнопка закрытия */
+.close {
+    color: #731110;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #470b0a;
+    text-decoration: none;
+}
 /* Кнопка "Контакты" */
 .contacts-button {
     font-size: 1em;

@@ -7,17 +7,19 @@ from typing import Dict
 import spacy
 from typing import List
 import requests
-from sentence_transformers import SentenceTransformer
 from spacy.matcher import PhraseMatcher
-from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
+
+# from sentence_transformers import SentenceTransformer
+# from spacy.matcher import PhraseMatcher
+# from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 
 #-----------------------------Вспомогательные функции для работы с PDF.
 # Загрузка модели spaCy для русского языка
 nlp = spacy.load("ru_core_news_lg")
 
 
-# Инициализация модели SentenceTransformer
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+# # Инициализация модели SentenceTransformer
+# embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 #Очистка текста: удаляет лишние символы и приводит к нижнему регистру
 def clean_text(text):
@@ -44,9 +46,9 @@ def extract_entities(text):
     return entities
 
 #Создание векторного представления текста
-def create_vector(text):
-    vector = embedding_model.encode(text)
-    return vector
+# def create_vector(text):
+#     vector = embedding_model.encode(text)
+#     return vector
 #--------------------------------------------------------------------
 
 
